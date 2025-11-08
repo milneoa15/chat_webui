@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Chatbot WebUI Mock API
+  version: 0.1.0
+servers:
+  - url: http://localhost:8000/api
+paths:
+  /health:
+    get:
+      summary: Backend heartbeat
+      operationId: getHealth
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+  /mock/models:
+    get:
+      summary: List mock models
+      operationId: getMockModels
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ModelCard"
+  /mock/chat:
+    post:
+      summary: Create mock chat completion stream
+      operationId: postMockChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatResponse"
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        version:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    ModelCard:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        quantization:
+          type: string
+        context_length:
+          type: integer
+        parameter_count:
+          type: number
+          format: float
+        description:
+          type: string
+    ChatConfig:
+      type: object
+      properties:
+        temperature:
+          type: number
+          format: float
+        top_p:
+          type: number
+          format: float
+        max_tokens:
+          type: integer
+        presence_penalty:
+          type: number
+          format: float
+        frequency_penalty:
+          type: number
+          format: float
+    ChatRequest:
+      type: object
+      required:
+        - model_id
+        - prompt
+      properties:
+        model_id:
+          type: string
+        prompt:
+          type: string
+        system_prompt:
+          type: string
+        config:
+          $ref: "#/components/schemas/ChatConfig"
+    ChatChunk:
+      type: object
+      properties:
+        token:
+          type: string
+        index:
+          type: integer
+        is_final:
+          type: boolean
+    ChatResponse:
+      type: object
+      properties:
+        model_id:
+          type: string
+        stream:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatChunk"

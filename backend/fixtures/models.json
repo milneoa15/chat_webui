@@ -1,0 +1,18 @@
+[
+  {
+    "id": "tinyllama-q4",
+    "name": "TinyLlama 1.1B Q4_K_M",
+    "quantization": "Q4_K_M",
+    "context_length": 2048,
+    "parameter_count": 1.1,
+    "description": "TinyLlama baseline for smoke tests."
+  },
+  {
+    "id": "mistral-7b-instruct",
+    "name": "Mistral 7B Instruct Q4_K_S",
+    "quantization": "Q4_K_S",
+    "context_length": 8192,
+    "parameter_count": 7.0,
+    "description": "Default instruct-tuned 7B experience."
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "token": "Hello",
+    "index": 0,
+    "is_final": false
+  },
+  {
+    "token": ",",
+    "index": 1,
+    "is_final": false
+  },
+  {
+    "token": " I'm a mock reply describing how the assistant would respond to your prompt.",
+    "index": 2,
+    "is_final": false
+  },
+  {
+    "token": " The real backend will stream ROCm-accelerated tokens in Phase 2.",
+    "index": 3,
+    "is_final": true
+  }
+]
