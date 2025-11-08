@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .ruff_cache/
+.state/
+notes.txt
 
 node_modules/
 frontend/node_modules/

@@ -2,15 +2,17 @@
 
 from fastapi import FastAPI
 
-from backend.app.api.routes import health, mock, spec
+from backend.app.api.routes import health, mock, runtime, spec
 from backend.app.config import settings
+from backend.app.db.session import init_db
 from backend.app.version import __version__
 
 
 def create_app() -> FastAPI:
     """Instantiate the FastAPI application."""
+    init_db()
     app = FastAPI(title=settings.project_name, version=__version__)
-    for router in (health.router, mock.router, spec.router):
+    for router in (health.router, mock.router, runtime.router, spec.router):
         app.include_router(router, prefix=settings.api_prefix)
     return app
 

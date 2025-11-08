@@ -4,9 +4,10 @@ Self-hosted chat experience targeting local GGUF models accelerated via ROCm-rea
 
 ## Repository layout
 
-- `backend/` – FastAPI app, OpenAPI schema, mock fixtures, and Python tooling.
-- `frontend/` – Vite + React + Tailwind UI with TanStack Query + Zustand state.
-- `infra/` – CI workflows, Invoke tasks, and future deployment scripts.
+- `backend/` - FastAPI app, OpenAPI schema, mock fixtures, and Python tooling.
+- `frontend/` - Vite + React + Tailwind UI with TanStack Query + Zustand state.
+- `infra/` - CI workflows, Invoke tasks, and runtime automation helpers.
+- `docs/` - Operational guides such as ROCm runtime setup.
 
 ## Getting started
 
@@ -15,6 +16,7 @@ Self-hosted chat experience targeting local GGUF models accelerated via ROCm-rea
    uv sync
    uv run fastapi dev backend/app/main.py
    ```
+   Install ROCm llama bindings when ready with `uv sync --extra runtime`.
    The backend exposes a health endpoint at `/api/health` and serves mock chat/model schemas for the frontend.
 
 2. **Frontend toolchain**
@@ -33,4 +35,4 @@ Self-hosted chat experience targeting local GGUF models accelerated via ROCm-rea
    cd frontend && npm run lint
    ```
 
-See `implementation_plan.md` for the full multi-phase roadmap. Phase 1 focuses on reproducible environments and developer tooling; later phases add ROCm runtimes, chat streaming, and packaging.
+See `implementation_plan.md` for the multi-phase roadmap. Runtime-specific guidance (building llama.cpp with ROCm flags or copying the LM Studio pack) lives in `docs/runtime_setup.md`.

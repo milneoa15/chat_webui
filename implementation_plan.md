@@ -20,23 +20,23 @@ Build a self-hosted chat experience comparable to Open WebUI that can load GGUF 
 ## Phase 1 - Repository & Tooling Foundation
 **Goal:** Establish reproducible environments for backend/frontend and document the developer workflow.
 
-- [ ] Initialize Git repo, add `README.md`, `LICENSE`, and project structure (`backend/`, `frontend/`, `infra/`).
-- [ ] Install UV (if missing) and add `uv.lock`, `pyproject.toml`, and scripts (`uv run`, `uv pip compile`).
-- [ ] Scaffold FastAPI app with health check endpoint; add `ruff` + `black` configs for lint/format.
-- [ ] Create Vite + React + TypeScript project with Tailwind; configure ESLint + Prettier.
-- [ ] Define the initial OpenAPI schema (chat stream, model management) and publish a mock server/fixture so frontend work can proceed independently.
-- [ ] Add GitHub Actions (or local `invoke` tasks) for lint/test on both stacks.
+- [x] Initialize Git repo, add `README.md`, `LICENSE`, and project structure (`backend/`, `frontend/`, `infra/`).
+- [x] Install UV (if missing) and add `uv.lock`, `pyproject.toml`, and scripts (`uv run`, `uv pip compile`).
+- [x] Scaffold FastAPI app with health check endpoint; add `ruff` + `black` configs for lint/format.
+- [x] Create Vite + React + TypeScript project with Tailwind; configure ESLint + Prettier.
+- [x] Define the initial OpenAPI schema (chat stream, model management) and publish a mock server/fixture so frontend work can proceed independently.
+- [x] Add GitHub Actions (or local `invoke` tasks) for lint/test on both stacks.
 **Verification:** `uv run pytest` (even if empty), `npm run lint`, and CI workflow succeed; developer docs explain UV usage.
 
 ## Phase 2 - ROCm Runtime & Core Backend
 **Goal:** Deliver a minimal FastAPI backend that can load one ROCm-enabled GGUF model and stream tokens.
 
-- [ ] Add script to fetch/build llama.cpp with ROCm flags (`LLAMA_HIPBLAS=1`, `LLAMA_CLBLAST=0`) and document prerequisites (ROCm drivers, Visual Studio Build Tools on Windows if compiling locally).
-- [ ] Document and automate copying the LM Studio "ROCm llama.cpp (Windows) v1.55.0" runtime pack into the project (hash validation, expected folder layout) as the preferred GGUF engine path.
-- [ ] Implement a Python wrapper that loads a single model via `llama_cpp.Llama` (ROCm build) and exposes init/teardown hooks.
-- [ ] Provide model lifecycle APIs: upload/select GGUF, load into memory, unload, query VRAM/RAM usage.
-- [ ] Define a configuration schema covering context length, GPU layer offload, CPU threads, eval batch size, KV cache placement, `mmap`, and keep-in-memory flags.
-- [ ] Add SQLite (SQLModel/SQLAlchemy) persistence for installed models and default config, with Alembic/SQLModel migrations introduced before writing data so later schema changes are safe.
+- [x] Add script to fetch/build llama.cpp with ROCm flags (`LLAMA_HIPBLAS=1`, `LLAMA_CLBLAST=0`) and document prerequisites (ROCm drivers, Visual Studio Build Tools on Windows if compiling locally).
+- [x] Document and automate copying the LM Studio "ROCm llama.cpp (Windows) v1.55.0" runtime pack into the project (hash validation, expected folder layout) as the preferred GGUF engine path.
+- [x] Implement a Python wrapper that loads a single model via `llama_cpp.Llama` (ROCm build) and exposes init/teardown hooks.
+- [x] Provide model lifecycle APIs: upload/select GGUF, load into memory, unload, query VRAM/RAM usage.
+- [x] Define a configuration schema covering context length, GPU layer offload, CPU threads, eval batch size, KV cache placement, `mmap`, and keep-in-memory flags.
+- [x] Add SQLite (SQLModel/SQLAlchemy) persistence for installed models and default config, with Alembic/SQLModel migrations introduced before writing data so later schema changes are safe.
 **Verification:** Backend unit tests mock llama.cpp calls; integration test loads TinyLlama GGUF and completes a streamed response locally.
 
 ## Phase 3 - Basic Chat UI & Streaming
